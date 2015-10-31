@@ -54,13 +54,10 @@ public class Robot extends IterativeRobot {
 		autoChooser.addObject("Drive Forward", new DriveForward(-4000));
 		autoChooser.addObject("Step Cans", new PullCans());
 		autoChooser.addObject("WAIT STEP CANS", new WAITSTEPCAN());
-		//autoChooser.addObject("Assisted Tote Stack", new ToteStackAssisted());
-		//autoChooser.addObject("Simple Tote Stack", new ToteStackSimple());
 		autoChooser.addObject("Can-to-holder basic", new CanToHolderBasic());
 		autoChooser.addObject("CanHolder to auto", new CanToHolder());
 		//autoChooser.addObject("CanHolder to landfill", new CanHolderToLandfill());
 		autoChooser.addObject("TurnLeft90", new AutoDrivePID(-1000, 1000));
-		//autoChooser.addObject("Gotta go fast", new GottaGoFast());
 		SmartDashboard.putData("Auto Mode", autoChooser);
     }
 
