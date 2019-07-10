@@ -23,6 +23,6 @@ public class CollectorPneumatics extends Subsystem {
 		collectorA.set(true);
 	}
 	
-	public void initDefaultCommand() {
-	}
+	public void initDefaultCommand() {}
+	
 }

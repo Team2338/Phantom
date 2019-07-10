@@ -59,7 +59,6 @@ public class Elevator extends Subsystem {
 	public void enablePositionControl() {
 		elevator.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		elevator.changeControlMode(ControlMode.Position);
-//		elevator.setPID(Globals.elevatorP, Globals.elevatorI, Globals.elevatorD, 0, 0, 0, 0);
 		elevator.setPID(Globals.elevDownP, Globals.elevDownI, Globals.elevDownD);
 		elevator.reverseOutput(Globals.elevatorMotorReversed);
 		elevator.reverseSensor(Globals.elevatorEncoderReversed);

@@ -19,6 +19,6 @@ public class Hooks extends Subsystem {
 		leftHookB.set(true);
 	}
 	
-	public void initDefaultCommand() {
-	}
+	public void initDefaultCommand() {}
+	
 }

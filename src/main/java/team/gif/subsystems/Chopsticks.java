@@ -22,6 +22,7 @@ public class Chopsticks extends Subsystem {
 		chopsticksA.set(true);
 	}
 	
-	public void initDefaultCommand() {
-	}
+	@Override
+	public void initDefaultCommand() {}
+	
 }

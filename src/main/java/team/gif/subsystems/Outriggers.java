@@ -19,6 +19,6 @@ public class Outriggers extends Subsystem {
 		outriggersB.set(true);
 	}
 	
-	public void initDefaultCommand() {
-	}
+	public void initDefaultCommand() {}
+	
 }

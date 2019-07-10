@@ -98,7 +98,7 @@ public class Drivetrain extends Subsystem {
 		frontLeft.setPosition(0);
 	}
 	
-	public void initDefaultCommand() {
-	}
+	public void initDefaultCommand() {}
+	
 }
 
