@@ -13,7 +13,7 @@ public class CollectorEject extends Command {
 	protected void initialize() {}
 	
 	protected void execute() {
-		Robot.collectorMotors.drive(-Globals.collectorSpeed, -Globals.collectorSpeed);
+		Robot.collectorMotors.drive(-Globals.COLLECTOR_SPEED, -Globals.COLLECTOR_SPEED);
 	}
 	
 	protected boolean isFinished() {

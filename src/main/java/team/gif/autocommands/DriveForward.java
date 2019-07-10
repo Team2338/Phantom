@@ -52,7 +52,7 @@ public class DriveForward extends Command {
 	
 	protected boolean isFinished() {
 		if ((Math.abs(errorLeft) <= TOLERANCE) && (Math.abs(errorRight) <= TOLERANCE)) {
-			Robot.chassis.tankDrive(0, 0);
+			Robot.chassis.setPercentOutput(0, 0);
 			return true;
 		}
 		
@@ -60,7 +60,7 @@ public class DriveForward extends Command {
 	}
 	
 	protected void end() {
-		Robot.chassis.tankDrive(0, 0);
+		Robot.chassis.setPercentOutput(0, 0);
 	}
 	
 	protected void interrupted() {

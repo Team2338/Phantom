@@ -1,104 +1,101 @@
 package team.gif.subsystems;
 
-import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.CANTalon.ControlMode;
-import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import team.gif.Globals;
 import team.gif.RobotMap;
 
 /**
- * @author NotPatrick
+ * @author Patrick Ubelhor
+ *
+ * TODO: Set PID constant
  */
 public class Drivetrain extends Subsystem {
 	
-	private static final CANTalon frontLeft = new CANTalon(RobotMap.frontLeft);
-	private static final CANTalon frontRight = new CANTalon(RobotMap.frontRight);
-	private static final CANTalon rearLeft = new CANTalon(RobotMap.rearLeft);
-	private static final CANTalon rearRight = new CANTalon(RobotMap.rearRight);
+	private static final TalonSRX leftMaster = new TalonSRX(RobotMap.DRIVETRAIN_LEFT_MASTER);
+	private static final TalonSRX leftSlave = new TalonSRX(RobotMap.DRIVETRAIN_LEFT_SLAVE);
+	private static final TalonSRX rightMaster = new TalonSRX(RobotMap.DRIVETRAIN_RIGHT_MASTER);
+	private static final TalonSRX rightSlave = new TalonSRX(RobotMap.DRIVETRAIN_RIGHT_SLAVE);
 	
 	public Drivetrain() {
 		super();
 		
-		frontLeft.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		frontLeft.reverseSensor(Globals.leftEncoderReversed);
-		frontLeft.reverseOutput(Globals.leftMotorReversed);
+		leftMaster.setNeutralMode(NeutralMode.Brake);
+		leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+		leftMaster.setSensorPhase(Globals.Drivetrain.IS_REVERSED_LEFT_ENCODER);
+		leftMaster.setInverted(Globals.Drivetrain.IS_REVERSED_LEFT_MOTOR);
+		leftMaster.setSelectedSensorPosition(0);
+		leftMaster.config_kP(0, Globals.Drivetrain.P);
+		leftMaster.config_kI(0, Globals.Drivetrain.I);
+		leftMaster.config_kD(0, Globals.Drivetrain.D);
+		rightMaster.config_IntegralZone(0, Globals.Drivetrain.I_ZONE);
 		
-		frontRight.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		frontRight.reverseSensor(Globals.rightEncoderReversed);
-		frontRight.reverseOutput(Globals.rightMotorReversed);
+		rightMaster.setNeutralMode(NeutralMode.Brake);
+		rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+		rightMaster.setSensorPhase(Globals.Drivetrain.IS_REVERSED_RIGHT_ENCODER);
+		rightMaster.setInverted(Globals.Drivetrain.IS_REVERSED_RIGHT_MOTOR);
+		rightMaster.setSelectedSensorPosition(0);
+		leftMaster.config_kP(0, Globals.Drivetrain.P);
+		leftMaster.config_kI(0, Globals.Drivetrain.I);
+		leftMaster.config_kD(0, Globals.Drivetrain.D);
+		rightMaster.config_IntegralZone(0, Globals.Drivetrain.I_ZONE);
 		
-		frontRight.setPosition(0);
-		frontLeft.setPosition(0);
-		
-		frontLeft.changeControlMode(ControlMode.PercentVbus);
-		frontRight.changeControlMode(ControlMode.PercentVbus);
-		rearLeft.changeControlMode(ControlMode.Follower);
-		rearRight.changeControlMode(ControlMode.Follower);
-		
-		frontLeft.set(0);
-		frontRight.set(0);
-		rearLeft.set(RobotMap.frontLeft);
-		rearRight.set(RobotMap.rearRight);
+		leftSlave.follow(leftMaster);
+		rightSlave.follow(rightMaster);
 	}
 	
-	public void enableManualControl() {
-		frontLeft.changeControlMode(ControlMode.PercentVbus);
-		frontRight.changeControlMode(ControlMode.PercentVbus);
-		frontLeft.set(0);
-		frontRight.set(0);
-	}
-	
-	public void enablePositionControl() {
-		frontLeft.changeControlMode(ControlMode.Position);
-		frontRight.changeControlMode(ControlMode.Position);
-		frontLeft.setPID(Globals.drivetrainP, Globals.drivetrainI, Globals.drivetrainD);
-		frontRight.setPID(Globals.drivetrainP, Globals.drivetrainI, Globals.drivetrainD);
-		frontLeft.setIZone(Globals.drivetrainIZone);
-		frontRight.setIZone(Globals.drivetrainIZone);
-		frontLeft.setPosition(0);
-		frontRight.setPosition(0);
-		frontLeft.set(0);
-		frontRight.set(0);
-	}
 	
 	public double getLeftError() {
-		return frontLeft.getClosedLoopError();
+		return leftMaster.getClosedLoopError();
 	}
 	
 	public double getRightError() {
-		return frontRight.getClosedLoopError();
+		return rightMaster.getClosedLoopError();
 	}
 	
-	public void tankDrive(double left, double right) {
-		driveLeft(left);
-		driveRight(right);
+	public void setPercentOutput(double left, double right) {
+		setLeftPercentOutput(left);
+		setRightPercentOutput(right);
 	}
 	
-	public void driveLeft(double setpoint) {
-		frontLeft.set(setpoint);
-		rearLeft.set(RobotMap.frontLeft);
+	public void setLeftPercentOutput(double setpoint) {
+		leftMaster.set(ControlMode.PercentOutput, setpoint);
 	}
 	
-	public void driveRight(double setpoint) {
-		frontRight.set(-setpoint);
-		rearRight.set(RobotMap.frontRight);
+	public void setRightPercentOutput(double setpoint) {
+		rightMaster.set(ControlMode.PercentOutput, setpoint);
+	}
+	
+	public void setPosition(double left, double right) {
+		setLeftPosition(left);
+		setRightPosition(right);
+	}
+	
+	public void setLeftPosition(double setpoint) {
+		leftMaster.set(ControlMode.Position, setpoint);
+	}
+	
+	public void setRightPosition(double setpoint) {
+		rightMaster.set(ControlMode.Position, setpoint);
 	}
 	
 	public double getLeftDistance() {
-		return frontLeft.getPosition();
+		return leftMaster.getSelectedSensorPosition();
 	}
 	
 	public double getRightDistance() {
-		return frontRight.getPosition();
+		return rightMaster.getSelectedSensorPosition();
 	}
 	
 	public void resetEncoders() {
-		frontRight.setPosition(0);
-		frontLeft.setPosition(0);
+		leftMaster.setSelectedSensorPosition(0);
+		rightMaster.setSelectedSensorPosition(0);
 	}
 	
+	@Override
 	public void initDefaultCommand() {}
 	
 }
-

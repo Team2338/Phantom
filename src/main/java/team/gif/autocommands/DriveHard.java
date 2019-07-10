@@ -25,7 +25,7 @@ public class DriveHard extends Command {
 	}
 	
 	protected void execute() {
-		Robot.chassis.tankDrive(rate, rate);
+		Robot.chassis.setPercentOutput(rate, rate);
 	}
 	
 	protected boolean isFinished() {
@@ -33,7 +33,7 @@ public class DriveHard extends Command {
 	}
 	
 	protected void end() {
-		Robot.chassis.tankDrive(0, 0);
+		Robot.chassis.setPercentOutput(0, 0);
 	}
 	
 	protected void interrupted() {}

@@ -21,9 +21,9 @@ public class CollectorRotate extends Command {
 	
 	protected void execute() {
 		if (rotDir) {
-			Robot.collectorMotors.drive(Globals.collectorSpeed, -Globals.collectorSpeed);
+			Robot.collectorMotors.drive(Globals.COLLECTOR_SPEED, -Globals.COLLECTOR_SPEED);
 		} else {
-			Robot.collectorMotors.drive(-Globals.collectorSpeed, Globals.collectorSpeed);
+			Robot.collectorMotors.drive(-Globals.COLLECTOR_SPEED, Globals.COLLECTOR_SPEED);
 		}
 	}
 	
