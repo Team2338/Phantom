@@ -9,7 +9,10 @@ import team.gif.commands.OutriggersExtend;
 import team.gif.commands.OutriggersRetract;
 
 /**
- * @author PatrickUbelhor
+ * @author Patrick Ubelhor
+ *
+ * Used to get step cans when a third can is pre-loaded in the bot.
+ * This just closes the chopsticks before getting cans.
  */
 public class StepCansPLUS extends CommandGroup {
 	

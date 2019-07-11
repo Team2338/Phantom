@@ -38,6 +38,7 @@ public abstract class Globals {
 		public static final boolean IS_ENCODER_REVERSED = true;
 		public static final double LEVEL_1 = 12;
 		public static final double LEVEL_2 = 1000;
+		public static final double LEVEL_2_BUMP = 1400;
 		public static final double LEVEL_3 = 2100;
 		public static final double LEVEL_4 = 3200;
 		public static final double LEVEL_5 = 4300;

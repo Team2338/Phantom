@@ -6,7 +6,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.Robot;
 
 /**
- * @author PatrickUbelhor
+ * @author Patrick Ubelhor
+ *
+ * While this command is running, it will automatically call Stacro when
+ * a tote hits the collector limit switch.
  */
 public class QuickStack extends Command {
 	
@@ -23,7 +26,8 @@ public class QuickStack extends Command {
 	protected void execute() {
 		if (Robot.collectorMotors.getLimit()
 				&& !toggle
-				&& !stacro.isRunning() && Timer.getFPGATimestamp() - initTime > 2) {
+				&& !stacro.isRunning()
+				&& Timer.getFPGATimestamp() - initTime > 2) {
 			
 			stacro.start();
 			toggle = true;

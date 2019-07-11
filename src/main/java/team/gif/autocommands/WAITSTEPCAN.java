@@ -8,7 +8,9 @@ import team.gif.commands.OutriggersExtend;
 import team.gif.commands.OutriggersRetract;
 
 /**
+ * @author Patrick Ubelhor
  *
+ * Waits 5 seconds before deploying outriggers and driving forward with the step cans.
  */
 public class WAITSTEPCAN extends CommandGroup {
 	

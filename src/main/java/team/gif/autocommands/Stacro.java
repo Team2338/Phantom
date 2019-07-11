@@ -9,29 +9,22 @@ import team.gif.commands.elevator.ElevSetpoint;
 import team.gif.commands.elevator.ElevatorCoastDown;
 
 /**
- *
+ * @author Patrick Ubelhor
  */
 public class Stacro extends CommandGroup {
 	
 	public Stacro() {
 		
-		// If ELEVATOR isn't at level 2, tell it to go to level 2
-		// Removes delay on initial stack (when not holding any totes)
-		//if (Math.abs(Robot.ELEVATOR.getHeight() - Globals.LEVEL_2) > 150) {
-		addSequential(new ElevSetpoint(Globals.kElevatorLevel2));
-		//addSequential(new WaitCommand(.3));
-		//}
-		
-		// Removes delay on initial stack (when not holding any totes)
-		//if (Globals.chopsticksOpen) {
+		// Place stack on new tote
+		addSequential(new ElevSetpoint(Globals.Elevator.LEVEL_2));
 		addSequential(new ChopsticksOpen());
 		addSequential(new WaitCommand(0.18));
-		//}
-		//addSequential(new CollectorOpen());
-		addSequential(new ElevSetpoint(Globals.kElevatorLevel1));
+		
+		// Lift new stack a bit above level 2 (to clear lip of next inbound tote)
+		addSequential(new ElevSetpoint(Globals.Elevator.LEVEL_1));
 		addSequential(new ElevatorCoastDown());
 		addSequential(new ChopsticksClose());
 		addSequential(new WaitCommand(.25));
-		addSequential(new ElevSetpoint(Globals.kElevatorLevel2 + 400));
+		addSequential(new ElevSetpoint(Globals.Elevator.LEVEL_2_BUMP));
 	}
 }

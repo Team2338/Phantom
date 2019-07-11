@@ -8,7 +8,9 @@ import team.gif.commands.OutriggersExtend;
 import team.gif.commands.OutriggersRetract;
 
 /**
+ * @author Patrick Ubelhor
  *
+ * Deploys outriggers, then drives forward to pull the cans off the step.
  */
 public class PullCans extends CommandGroup {
 	
