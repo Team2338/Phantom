@@ -1,4 +1,4 @@
-package team.gif.autocommands;
+package team.gif.commands.elevator;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -6,7 +6,7 @@ import team.gif.Globals;
 import team.gif.Robot;
 
 /**
- * @author PatrickUbelhor
+ * @author Patrick Ubelhor
  */
 public class ElevSetpoint extends Command {
 	

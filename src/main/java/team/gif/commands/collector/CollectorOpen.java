@@ -1,19 +1,19 @@
-package team.gif.commands;
+package team.gif.commands.collector;
 
 import edu.wpi.first.wpilibj.command.Command;
 import team.gif.Robot;
 
 /**
- * @author PatrickUbelhor
+ * @author Patrick Ubelhor
  */
-public class CollectorClose extends Command {
+public class CollectorOpen extends Command {
 	
-	public CollectorClose() {
+	public CollectorOpen() {
 		requires(Robot.collectorPneumo);
 	}
 	
 	protected void initialize() {
-		Robot.collectorPneumo.close();
+		Robot.collectorPneumo.open();
 	}
 	
 	protected void execute() {}

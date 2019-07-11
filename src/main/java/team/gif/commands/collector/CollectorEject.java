@@ -1,23 +1,22 @@
-package team.gif.commands;
+package team.gif.commands.collector;
 
 import edu.wpi.first.wpilibj.command.Command;
-import team.gif.OI;
 import team.gif.Robot;
+import team.gif.subsystems.CollectorMotors;
 
 /**
  * @author Patrick Ubelhor
  */
-public class TankDriveLinear extends Command {
+public class CollectorEject extends Command {
 	
-	
-	public TankDriveLinear() {
-		requires(Robot.chassis);
+	public CollectorEject() {
+		requires(Robot.collectorMotors);
 	}
 	
 	protected void initialize() {}
 	
 	protected void execute() {
-		Robot.chassis.setPercentOutput(OI.getLeftY(), OI.getRightY());
+		Robot.collectorMotors.drive(CollectorMotors.Direction.OUT);
 	}
 	
 	protected boolean isFinished() {

@@ -1,11 +1,11 @@
-package team.gif.commands;
+package team.gif.commands.elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 import team.gif.Globals;
 import team.gif.Robot;
 
 /**
- * @author NotPatrick
+ * @author NotPatrick (Ryan Guinn), Patrick Ubelhor
  */
 public class ElevatorCoastDown extends Command {
 	
@@ -13,11 +13,10 @@ public class ElevatorCoastDown extends Command {
 		requires(Robot.elevator);
 	}
 	
-	// Called just before this Command runs the first time
 	protected void initialize() {}
 	
-	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		// Causes a quick coast down until close to bottom, then slowly approaches limit switch
 		if (Robot.elevator.getHeight() > 250) {
 			Robot.elevator.drive(Robot.elevator.getHeight() - 325);
 		} else {
@@ -25,7 +24,6 @@ public class ElevatorCoastDown extends Command {
 		}
 	}
 	
-	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		if (Robot.elevator.getMin()) {
 			Robot.elevator.reset();
@@ -34,13 +32,10 @@ public class ElevatorCoastDown extends Command {
 		return false;
 	}
 	
-	// Called once after isFinished returns true
 	protected void end() {
 		Globals.elevatorSetpoint = 0;
 	}
 	
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
 	protected void interrupted() {
 		Globals.elevatorSetpoint = Robot.elevator.getHeight();
 	}

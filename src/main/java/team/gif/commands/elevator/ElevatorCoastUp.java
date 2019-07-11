@@ -1,11 +1,11 @@
-package team.gif.commands;
+package team.gif.commands.elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 import team.gif.Globals;
 import team.gif.Robot;
 
 /**
- *
+ * @author NotPatrick (Ryan Guinn), Patrick
  */
 public class ElevatorCoastUp extends Command {
 	
@@ -15,10 +15,8 @@ public class ElevatorCoastUp extends Command {
 		requires(Robot.elevator);
 	}
 	
-	// Called just before this Command runs the first time
 	protected void initialize() {}
 	
-	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		if (Robot.elevator.getHeight() < 4700) {
 			Robot.elevator.drive(Robot.elevator.getHeight() + 325);
@@ -27,7 +25,6 @@ public class ElevatorCoastUp extends Command {
 		}
 	}
 	
-	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		if (Robot.elevator.getMax()) {
 			topVal = Robot.elevator.getHeight();
@@ -37,13 +34,10 @@ public class ElevatorCoastUp extends Command {
 		return false;
 	}
 	
-	// Called once after isFinished returns true
 	protected void end() {
 		Globals.elevatorSetpoint = topVal;
 	}
 	
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
 	protected void interrupted() {
 		Globals.elevatorSetpoint = Robot.elevator.getHeight();
 	}

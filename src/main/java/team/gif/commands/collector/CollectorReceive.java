@@ -1,11 +1,11 @@
-package team.gif.commands;
+package team.gif.commands.collector;
 
 import edu.wpi.first.wpilibj.command.Command;
-import team.gif.Globals;
 import team.gif.Robot;
+import team.gif.subsystems.CollectorMotors;
 
 /**
- *
+ * @author Patrick Ubelhor
  */
 public class CollectorReceive extends Command {
 	
@@ -16,7 +16,7 @@ public class CollectorReceive extends Command {
 	protected void initialize() {}
 	
 	protected void execute() {
-		Robot.collectorMotors.drive(Globals.COLLECTOR_SPEED, Globals.COLLECTOR_SPEED);
+		Robot.collectorMotors.drive(CollectorMotors.Direction.IN);
 	}
 	
 	protected boolean isFinished() {

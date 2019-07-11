@@ -1,4 +1,3 @@
-
 package team.gif;
 
 import edu.wpi.first.wpilibj.Compressor;
@@ -47,7 +46,7 @@ public class Robot extends TimedRobot {
 	
 	private SendableChooser<Command> autoChooser;
 	private Command autoCommand;
-	private Command teleCommand = new TankDriveLinear(Globals.JOYSTICK_DEADBAND);
+	private Command teleCommand = new TankDriveLinear();
 	
 	@Override
 	public void robotInit() {

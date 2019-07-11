@@ -8,12 +8,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.Globals;
 import team.gif.RobotMap;
-import team.gif.commands.CollectorStandby;
+import team.gif.commands.collector.CollectorStandby;
 
 /**
  * @author Patrick Ubelhor
  */
 public class CollectorMotors extends Subsystem {
+	
+	public static enum Direction {
+		IN, OUT, LEFT, RIGHT
+	}
 	
 	private static final TalonSRX left = new TalonSRX(RobotMap.COLLECTOR_LEFT);
 	private static final TalonSRX right = new TalonSRX(RobotMap.COLLECTOR_RIGHT);
@@ -46,6 +50,21 @@ public class CollectorMotors extends Subsystem {
 	public void drive(double leftSpeed, double rightSpeed) {
 		left.set(ControlMode.PercentOutput, leftSpeed);
 		right.set(ControlMode.PercentOutput, rightSpeed);
+	}
+	
+	public void drive(Direction direction) {
+		double leftSpeed = Globals.Collector.SPEED;
+		double rightSpeed = Globals.Collector.SPEED;
+		
+		if (direction == Direction.OUT || direction == Direction.LEFT) {
+			leftSpeed *= -1;
+		}
+		
+		if (direction == Direction.OUT || direction == Direction.RIGHT) {
+			rightSpeed *= -1;
+		}
+		
+		drive(leftSpeed, rightSpeed);
 	}
 	
 	public void displayMetrics() {

@@ -5,17 +5,17 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import team.gif.autocommands.CanExtend;
 import team.gif.autocommands.CanRetract;
-import team.gif.autocommands.ElevSetpoint;
+import team.gif.commands.elevator.ElevSetpoint;
 import team.gif.autocommands.QuickStack;
 import team.gif.autocommands.Stacro;
 import team.gif.commands.ChopsticksClose;
 import team.gif.commands.ChopsticksOpen;
-import team.gif.commands.CollectorClose;
-import team.gif.commands.CollectorEject;
-import team.gif.commands.CollectorOpen;
-import team.gif.commands.CollectorReceive;
-import team.gif.commands.CollectorRotate;
-import team.gif.commands.ElevatorCoastDown;
+import team.gif.commands.collector.CollectorClose;
+import team.gif.commands.collector.CollectorEject;
+import team.gif.commands.collector.CollectorOpen;
+import team.gif.commands.collector.CollectorReceive;
+import team.gif.commands.collector.CollectorRotateLeft;
+import team.gif.commands.elevator.ElevatorCoastDown;
 import team.gif.commands.HolderOpen;
 
 /**
@@ -27,9 +27,9 @@ import team.gif.commands.HolderOpen;
  */
 public class OI {
 	
-	public static final Joystick leftStick = new Joystick(0);
-	public static final Joystick rightStick = new Joystick(1);
-	public static final Joystick auxStick = new Joystick(2);
+	private static final Joystick leftStick = new Joystick(0);
+	private static final Joystick rightStick = new Joystick(1);
+	private static final Joystick auxStick = new Joystick(2);
 	
 	public static Button leftTrigger = new JoystickButton(leftStick, 1);
 	private static Button left2;
@@ -86,8 +86,8 @@ public class OI {
 		rightTrigger.whenReleased(new CollectorClose());
 		right2.whileHeld(new CollectorReceive());
 		right3.whileHeld(new CollectorEject());
-		right4.whileHeld(new CollectorRotate(false));
-		right5.whileHeld(new CollectorRotate(true));
+		right4.whileHeld(new CollectorRotateLeft(false));
+		right5.whileHeld(new CollectorRotateLeft(true));
 		
 		auxTrigger.whenPressed(new ChopsticksClose());
 		aux2.whenReleased(new ElevatorCoastDown());
@@ -95,13 +95,28 @@ public class OI {
 		aux4.whenPressed(new ChopsticksOpen());
 		aux5.whenPressed(new Stacro());
 		aux6.whileHeld(new QuickStack());
-		aux7.whenPressed(new ElevSetpoint(Globals.kElevatorLevel2));
-		aux8.whenPressed(new ElevSetpoint(Globals.kElevatorLevel3));
-		aux9.whenPressed(new ElevSetpoint(Globals.kElevatorLevel4));
-		aux10.whenPressed(new ElevSetpoint(Globals.kElevatorLevel5));
+		aux7.whenPressed(new ElevSetpoint(Globals.Elevator.LEVEL_2));
+		aux8.whenPressed(new ElevSetpoint(Globals.Elevator.LEVEL_3));
+		aux9.whenPressed(new ElevSetpoint(Globals.Elevator.LEVEL_4));
+		aux10.whenPressed(new ElevSetpoint(Globals.Elevator.LEVEL_5));
 		aux11.toggleWhenPressed(new HolderOpen());
 		
 	}
 	
+	public static double getLeftY() {
+		if (Math.abs(OI.leftStick.getY()) > Globals.JOYSTICK_DEADBAND) {
+			return -leftStick.getY();
+		}
+		
+		return 0;
+	}
+	
+	public static double getRightY() {
+		if (Math.abs(OI.rightStick.getY()) > Globals.JOYSTICK_DEADBAND) {
+			return -rightStick.getY();
+		}
+		
+		return 0;
+	}
+	
 }
-

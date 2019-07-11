@@ -3,7 +3,7 @@ package team.gif.autocommands;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * @author Patrick Ubelhor
  */
 public class AntiAuto extends Command {
 	

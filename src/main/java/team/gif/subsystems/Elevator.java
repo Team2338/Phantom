@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.Globals;
 import team.gif.RobotMap;
-import team.gif.commands.ElevatorStandby;
+import team.gif.commands.elevator.ElevatorStandby;
 
 /**
  * Doin' Elevator Stuff....
@@ -79,7 +79,7 @@ public class Elevator extends Subsystem {
 		SmartDashboard.putBoolean("ElevMax", getMax());
 		SmartDashboard.putNumber("ElevOutput", elevator.getMotorOutputPercent());
 		SmartDashboard.putNumber("ElevGainP", getError() * Globals.Elevator.kP);
-		SmartDashboard.putNumber("ElevGainI", elevator.getIntegralAccumulator() * Globals.Elevator.kI);
+		SmartDashboard.putNumber("ElevGainI", getIAccum() * Globals.Elevator.kI);
 		SmartDashboard.putNumber("ElevGainD", elevator.getErrorDerivative() * Globals.Elevator.kD);
 	}
 	

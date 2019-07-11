@@ -1,21 +1,22 @@
-package team.gif.commands;
+package team.gif.commands.elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
+import team.gif.Globals;
 import team.gif.Robot;
 
 /**
- * @author PatrickUbelhor
+ * @author Armaan Shah, Patrick Ubelhor
  */
-public class CollectorStandby extends Command {
+public class ElevatorStandby extends Command {
 	
-	public CollectorStandby() {
-		requires(Robot.collectorMotors);
+	public ElevatorStandby() {
+		requires(Robot.elevator);
 	}
 	
 	protected void initialize() {}
 	
 	protected void execute() {
-		Robot.collectorMotors.drive(0.0, 0.0);
+		Robot.elevator.drive(Globals.elevatorSetpoint);
 	}
 	
 	protected boolean isFinished() {

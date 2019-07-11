@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import team.gif.Robot;
 
 /**
- * @author PatrickUbelhor
+ * @author Patrick Ubelhor
  */
 public class ChopsticksOpen extends Command {
 	

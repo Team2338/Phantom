@@ -5,7 +5,8 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import team.gif.Globals;
 import team.gif.commands.ChopsticksClose;
 import team.gif.commands.ChopsticksOpen;
-import team.gif.commands.ElevatorCoastDown;
+import team.gif.commands.elevator.ElevSetpoint;
+import team.gif.commands.elevator.ElevatorCoastDown;
 
 /**
  *
