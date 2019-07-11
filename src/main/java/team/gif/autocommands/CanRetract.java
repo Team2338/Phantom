@@ -6,7 +6,9 @@ import team.gif.commands.HooksRetract;
 import team.gif.commands.OutriggersRetract;
 
 /**
+ * @author Patrick Ubelhor
  *
+ * Used in teleop to retract outriggers.
  */
 public class CanRetract extends CommandGroup {
 	

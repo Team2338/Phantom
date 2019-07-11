@@ -6,7 +6,9 @@ import team.gif.commands.HooksExtend;
 import team.gif.commands.OutriggersExtend;
 
 /**
+ * @author Patrick Ubelhor
  *
+ * Used in teleop to deploy outriggers.
  */
 public class CanExtend extends CommandGroup {
 	
