@@ -9,7 +9,7 @@ import team.gif.subsystems.CollectorMotors;
  */
 public class CollectorRotateLeft extends Command {
 	
-	public CollectorRotateLeft(boolean direction) {
+	public CollectorRotateLeft() {
 		requires(Robot.collectorMotors);
 	}
 	
