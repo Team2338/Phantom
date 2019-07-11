@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.Globals;
 import team.gif.RobotMap;
 import team.gif.commands.CollectorStandby;
@@ -45,6 +46,10 @@ public class CollectorMotors extends Subsystem {
 	public void drive(double leftSpeed, double rightSpeed) {
 		left.set(ControlMode.PercentOutput, leftSpeed);
 		right.set(ControlMode.PercentOutput, rightSpeed);
+	}
+	
+	public void displayMetrics() {
+		SmartDashboard.putBoolean("CollectorLimit", getLimit());
 	}
 	
 	@Override

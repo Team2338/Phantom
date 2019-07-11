@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.Globals;
 import team.gif.RobotMap;
 
@@ -91,6 +92,11 @@ public class Drivetrain extends Subsystem {
 	public void resetEncoders() {
 		leftMaster.setSelectedSensorPosition(0);
 		rightMaster.setSelectedSensorPosition(0);
+	}
+	
+	public void displayMetrics() {
+		SmartDashboard.putNumber("DriveLeftPosition", getLeftDistance());
+		SmartDashboard.putNumber("DriveRightPosition", getRightDistance());
 	}
 	
 	@Override

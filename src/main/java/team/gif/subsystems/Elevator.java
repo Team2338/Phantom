@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.Globals;
 import team.gif.RobotMap;
 import team.gif.commands.ElevatorStandby;
@@ -69,6 +70,17 @@ public class Elevator extends Subsystem {
 	public void reset() {
 		elevator.setSelectedSensorPosition(0);
 		drive(0);
+	}
+	
+	public void displayMetrics() {
+		SmartDashboard.putNumber("ElevSetpoint", getSetpoint());
+		SmartDashboard.putNumber("ElevPosition", getHeight());
+		SmartDashboard.putBoolean("ElevMin", getMin());
+		SmartDashboard.putBoolean("ElevMax", getMax());
+		SmartDashboard.putNumber("ElevOutput", elevator.getMotorOutputPercent());
+		SmartDashboard.putNumber("ElevGainP", getError() * Globals.Elevator.kP);
+		SmartDashboard.putNumber("ElevGainI", elevator.getIntegralAccumulator() * Globals.Elevator.kI);
+		SmartDashboard.putNumber("ElevGainD", elevator.getErrorDerivative() * Globals.Elevator.kD);
 	}
 	
 	@Override

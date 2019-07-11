@@ -33,4 +33,7 @@ public abstract class RobotMap {
 	public static final int CHOPSTICKS_A = 4;
 	public static final int CHOPSTICKS_B = 4;
 	
+	// Compressor
+	public static final int COMPRESSOR_MODULE = 1;
+	
 }

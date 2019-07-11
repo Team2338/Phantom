@@ -2,10 +2,9 @@
 package team.gif;
 
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import team.gif.autocommands.AntiAuto;
@@ -22,7 +21,6 @@ import team.gif.subsystems.CollectorMotors;
 import team.gif.subsystems.CollectorPneumatics;
 import team.gif.subsystems.Drivetrain;
 import team.gif.subsystems.Elevator;
-import team.gif.subsystems.Fastrigger;
 import team.gif.subsystems.Holder;
 import team.gif.subsystems.Hooks;
 import team.gif.subsystems.Outriggers;
@@ -34,63 +32,60 @@ import team.gif.subsystems.Outriggers;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot {
+public class Robot extends TimedRobot {
 	
 	public static final Elevator elevator = new Elevator();
 	public static final Drivetrain chassis = new Drivetrain();
-	public static final Fastrigger fastrigger = new Fastrigger();
 	public static final Chopsticks chopsticks = new Chopsticks();
 	public static final CollectorMotors collectorMotors = new CollectorMotors();
 	public static final CollectorPneumatics collectorPneumo = new CollectorPneumatics();
 	public static final Outriggers outriggers = new Outriggers();
 	public static final Holder holder = new Holder();
 	public static final Hooks hooks = new Hooks();
+	private static final Compressor compressor = new Compressor(RobotMap.COMPRESSOR_MODULE);
 	public static OI oi;
 	
-	public SendableChooser autoChooser;
+	private SendableChooser<Command> autoChooser;
+	private Command autoCommand;
+	private Command teleCommand = new TankDriveLinear(Globals.JOYSTICK_DEADBAND);
 	
-	private static Compressor compressor = new Compressor(1);
-	
-	Command autoCommand;
-	Command teleCommand;
-	
-	/**
-	 * This function is run when the robot is first started up and should be
-	 * used for any initialization code.
-	 */
+	@Override
 	public void robotInit() {
 		oi = new OI();
 		
-		teleCommand = new TankDriveLinear(.1);
-		
-		autoChooser = new SendableChooser();
-		autoChooser.addDefault("No autonomous", new AntiAuto());
-		autoChooser.addObject("Drive Forward", new DriveForward(-4000));
-		autoChooser.addObject("Step Cans", new PullCans());
-		autoChooser.addObject("WAIT STEP CANS", new WAITSTEPCAN());
-		autoChooser.addObject("Can-to-holder basic", new CanToHolderBasic());
-		autoChooser.addObject("CanHolder to auto", new CanToHolder());
-		//autoChooser.addObject("CanHolder to landfill", new CanHolderToLandfill());
-		autoChooser.addObject("TurnLeft90", new AutoDrivePID(-1000, 1000));
+		autoChooser = new SendableChooser<>();
+		autoChooser.setDefaultOption("No autonomous", new AntiAuto());
+		autoChooser.addOption("Drive Forward", new DriveForward(-4000));
+		autoChooser.addOption("Step Cans", new PullCans());
+		autoChooser.addOption("WAIT STEP CANS", new WAITSTEPCAN());
+		autoChooser.addOption("Can-to-holder basic", new CanToHolderBasic());
+		autoChooser.addOption("CanHolder to auto", new CanToHolder());
+		//autoChooser.addOption("CanHolder to landfill", new CanHolderToLandfill());
+		autoChooser.addOption("TurnLeft90", new AutoDrivePID(-1000, 1000));
 		SmartDashboard.putData("Auto Mode", autoChooser);
 	}
 	
+	@Override
+	public void robotPeriodic() {
+		chassis.displayMetrics();
+		collectorMotors.displayMetrics();
+		elevator.displayMetrics();
+	}
+	
+	@Override
 	public void autonomousInit() {
-		//if (autonomousCommand != null) autonomousCommand.start();
 		(new ChopsticksOpen()).start();
-		autoCommand = (Command) autoChooser.getSelected();
+		autoCommand = autoChooser.getSelected();
 		autoCommand.start();
 	}
 	
+	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("leftTicks:", chassis.getLeftDistance());
-		SmartDashboard.putNumber("rightTicks:", chassis.getRightDistance());
 		SmartDashboard.putData(chassis);
-//        SmartDashboard.putNumber("DriveErrorLeft", chassis.getLeftError());
-//        SmartDashboard.putNumber("DriveErrorRight", chassis.getRightError());
 	}
 	
+	@Override
 	public void teleopInit() {
 		if (autoCommand != null) {
 			autoCommand.cancel();
@@ -98,39 +93,20 @@ public class Robot extends IterativeRobot {
 		teleCommand.start();
 	}
 	
-	
+	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("leftTicks:", chassis.getLeftDistance());
-		SmartDashboard.putNumber("rightTicks:", chassis.getRightDistance());
-		SmartDashboard.putNumber("ElevHeight:", elevator.getHeight());
-		SmartDashboard.putBoolean("ElevMin:", elevator.getMin());
-		SmartDashboard.putBoolean("ElevMax:", elevator.getMax());
-		SmartDashboard.putBoolean("PusherMin:", fastrigger.getMin());
-		SmartDashboard.putBoolean("PusherMax:", fastrigger.getMax());
-		SmartDashboard.putBoolean("CollectorLimit", collectorMotors.getLimit());
-		SmartDashboard.putNumber("iAccum", elevator.getIAccum());
-		SmartDashboard.putNumber("Error", elevator.getError());
-		SmartDashboard.putNumber("Setpoint", elevator.getSetpoint());
-		//compressor.stop();
 	}
 	
-	/**
-	 * This function is called when the disabled button is hit.
-	 * You can use it to reset subsystems before shutting down.
-	 */
-	public void disabledInit() {
+	@Override
+	public void disabledInit() {}
 	
-	}
-	
+	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
 	
-	/**
-	 * This function is called periodically during test mode
-	 */
-	public void testPeriodic() {
-		LiveWindow.run();
-	}
+	@Override
+	public void testPeriodic() {}
+	
 }

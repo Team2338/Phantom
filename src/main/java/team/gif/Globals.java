@@ -5,7 +5,7 @@ package team.gif;
  * If a value is changed, code must be redeployed.
  * DO NOT EDIT UNLESS YOU KNOW WHAT YOU ARE DOING. PLEASE CONSULT SOMEONE WHO DOES.
  */
-public class Globals {
+public abstract class Globals {
 	
 	public static final double JOYSTICK_DEADBAND = 0.1;
 	
