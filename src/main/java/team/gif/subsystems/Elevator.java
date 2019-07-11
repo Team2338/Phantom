@@ -1,8 +1,8 @@
 package team.gif.subsystems;
 
-import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.CANTalon.ControlMode;
-import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import team.gif.Globals;
@@ -12,36 +12,38 @@ import team.gif.commands.ElevatorStandby;
 /**
  * Doin' Elevator Stuff....
  *
- * @author Armaan
+ * @author Armaan Shah, Patrick Ubelhor
  */
-
 public class Elevator extends Subsystem {
 	
-	private static final CANTalon elevator = new CANTalon(RobotMap.elevator);
-	private static final DigitalInput elevatorMax = new DigitalInput(RobotMap.elevatorMax);
-	private static final DigitalInput elevatorMin = new DigitalInput(RobotMap.elevatorMin);
+	private static final TalonSRX elevator = new TalonSRX(RobotMap.ELEVATOR);
+	private static final DigitalInput elevatorMax = new DigitalInput(RobotMap.ELEVATOR_MAX);
+	private static final DigitalInput elevatorMin = new DigitalInput(RobotMap.ELEVATOR_MIN);
 	private static double prevSet = 0;
 	
 	public Elevator() {
 		super();
-		enablePositionControl();
-		elevator.setPosition(0);
+		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+		elevator.setSensorPhase(Globals.Elevator.IS_ENCODER_REVERSED);
+		elevator.setInverted(Globals.Elevator.IS_MOTOR_REVERSED);
+		elevator.setSelectedSensorPosition(0);
+		elevator.config_kP(0, Globals.Elevator.kP);
+		elevator.config_kI(0, Globals.Elevator.kI);
+		elevator.config_kD(0, Globals.Elevator.kD);
+		elevator.config_kF(0, Globals.Elevator.kF);
+		elevator.config_IntegralZone(0, Globals.Elevator.I_ZONE);
 	}
 	
 	public double getSetpoint() {
-		return elevator.getSetpoint();
-	}
-	
-	public ControlMode getMode() {
-		return elevator.getControlMode();
+		return elevator.getClosedLoopTarget();
 	}
 	
 	public double getError() {
 		return elevator.getClosedLoopError();
 	}
 	
-	public long getIAccum() {
-		return elevator.GetIaccum();
+	public double getIAccum() {
+		return elevator.getIntegralAccumulator();
 	}
 	
 	public boolean getMin() {
@@ -53,46 +55,25 @@ public class Elevator extends Subsystem {
 	}
 	
 	public double getHeight() {
-		return elevator.getPosition();
-	}
-	
-	public void enablePositionControl() {
-		elevator.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		elevator.changeControlMode(ControlMode.Position);
-		elevator.setPID(Globals.elevDownP, Globals.elevDownI, Globals.elevDownD);
-		elevator.reverseOutput(Globals.elevatorMotorReversed);
-		elevator.reverseSensor(Globals.elevatorEncoderReversed);
-		drive(0);
-	}
-	
-	public void enableManualControl() {
-		elevator.changeControlMode(ControlMode.PercentVbus);
-		drive(0);
-		elevator.enableControl();
+		return elevator.getSelectedSensorPosition();
 	}
 	
 	public void drive(double setpoint) {
-//    	SmartDashboard.putNumber("Error", -0.001);
-//    	if (setpoint - elevator.getEncPosition() > 0){
-//    		elevator.setProfile(0);
-//    	}
-//    	else {
-//    		elevator.setProfile(1);
-//    	}
 		if (setpoint != prevSet)
-			elevator.ClearIaccum();
+			elevator.setIntegralAccumulator(0);
+		
 		prevSet = setpoint;
-		elevator.set(setpoint);
-//    	SmartDashboard.putNumber("ElevCurrent", elevator.getOutputCurrent());
-	}
-	
-	public void initDefaultCommand() {
-		setDefaultCommand(new ElevatorStandby());
+		elevator.set(ControlMode.Position, setpoint);
 	}
 	
 	public void reset() {
-		elevator.setPosition(0);
+		elevator.setSelectedSensorPosition(0);
 		drive(0);
+	}
+	
+	@Override
+	public void initDefaultCommand() {
+		setDefaultCommand(new ElevatorStandby());
 	}
 	
 }

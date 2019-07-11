@@ -7,8 +7,13 @@ package team.gif;
  */
 public class Globals {
 	
-	public static final double COLLECTOR_SPEED = 1;
 	public static final double JOYSTICK_DEADBAND = 0.1;
+	
+	public static class Collector {
+		public static final double SPEED = 1;
+		public static final boolean IS_LEFT_REVERSED = true;
+		public static final boolean IS_RIGHT_REVERSED = false;
+	}
 	
 	// Drivetrain variables
 	public static class Drivetrain {
@@ -24,16 +29,18 @@ public class Globals {
 	
 	// Elevator variables
 	public static class Elevator {
-		public static final double elevDownP = 8;
-		public static final double elevDownI = 0;
-		public static final double elevDownD = 0;
-		public static final boolean elevatorMotorReversed = true;
-		public static final boolean elevatorEncoderReversed = true;
-		public static final double kElevatorLevel1 = 12;
-		public static final double kElevatorLevel2 = 1000;
-		public static final double kElevatorLevel3 = 2100;
-		public static final double kElevatorLevel4 = 3200;
-		public static final double kElevatorLevel5 = 4300;
+		public static final double kP = 8;
+		public static final double kI = 0;
+		public static final double kD = 0;
+		public static final double kF = 0;
+		public static final int I_ZONE = 0;
+		public static final boolean IS_MOTOR_REVERSED = true;
+		public static final boolean IS_ENCODER_REVERSED = true;
+		public static final double LEVEL_1 = 12;
+		public static final double LEVEL_2 = 1000;
+		public static final double LEVEL_3 = 2100;
+		public static final double LEVEL_4 = 3200;
+		public static final double LEVEL_5 = 4300;
 	}
 	
 	// DON'T TOUCH THIS VALUE OR THE ROBOT WILL DIE:

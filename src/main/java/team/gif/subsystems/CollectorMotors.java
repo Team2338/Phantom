@@ -1,43 +1,53 @@
 package team.gif.subsystems;
 
-import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.CANTalon.ControlMode;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import team.gif.Globals;
 import team.gif.RobotMap;
 import team.gif.commands.CollectorStandby;
 
 /**
- * @author PatrickUbelhor
+ * @author Patrick Ubelhor
  */
 public class CollectorMotors extends Subsystem {
 	
-	private static final CANTalon left = new CANTalon(RobotMap.collectorLeft);
-	private static final CANTalon right = new CANTalon(RobotMap.collectorRight);
-	private static final DigitalInput limit = new DigitalInput(RobotMap.collectorLimit);
+	private static final TalonSRX left = new TalonSRX(RobotMap.COLLECTOR_LEFT);
+	private static final TalonSRX right = new TalonSRX(RobotMap.COLLECTOR_RIGHT);
+	private static final DigitalInput limit = new DigitalInput(RobotMap.COLLECTOR_LIMIT);
 	
 	public CollectorMotors() {
 		super();
-		enable();
+		
+		left.setNeutralMode(NeutralMode.Brake);
+		left.setInverted(Globals.Collector.IS_LEFT_REVERSED);
+		
+		right.setNeutralMode(NeutralMode.Brake);
+		right.setInverted(Globals.Collector.IS_RIGHT_REVERSED);
 	}
 	
-	private void enable() {
-		left.changeControlMode(ControlMode.PercentVbus);
-		right.changeControlMode(ControlMode.PercentVbus);
-		drive(0, 0);
-		left.enableControl();
-		right.enableControl();
-	}
-	
+	/**
+	 * @return Whether the arcade button on the collector is pressed.
+	 */
 	public boolean getLimit() {
 		return !limit.get();
 	}
 	
+	/**
+	 * Sets the speed of both motors.
+	 * Positive speed collects, negative speed ejects.
+	 *
+	 * @param leftSpeed The speed of the left motor
+	 * @param rightSpeed The speed of the right motor
+	 */
 	public void drive(double leftSpeed, double rightSpeed) {
-		left.set(-leftSpeed);
-		right.set(rightSpeed);
+		left.set(ControlMode.PercentOutput, leftSpeed);
+		right.set(ControlMode.PercentOutput, rightSpeed);
 	}
 	
+	@Override
 	public void initDefaultCommand() {
 		setDefaultCommand(new CollectorStandby());
 	}

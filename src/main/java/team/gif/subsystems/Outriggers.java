@@ -4,10 +4,13 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import team.gif.RobotMap;
 
+/**
+ * @author Patrick Ubelhor
+ */
 public class Outriggers extends Subsystem {
 	
-	public static final Solenoid outriggersA = new Solenoid(1, RobotMap.outriggersA);
-	public static final Solenoid outriggersB = new Solenoid(0, RobotMap.outriggersB);
+	private static final Solenoid outriggersA = new Solenoid(1, RobotMap.OUTRIGGERS_A);
+	private static final Solenoid outriggersB = new Solenoid(0, RobotMap.OUTRIGGERS_B);
 	
 	public void lower() {
 		outriggersB.set(false);
@@ -19,6 +22,7 @@ public class Outriggers extends Subsystem {
 		outriggersB.set(true);
 	}
 	
+	@Override
 	public void initDefaultCommand() {}
 	
 }

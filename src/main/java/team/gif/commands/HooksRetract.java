@@ -13,7 +13,7 @@ public class HooksRetract extends Command {
 	}
 	
 	protected void initialize() {
-		Robot.hooks.close();
+		Robot.hooks.retract();
 	}
 	
 	protected void execute() {}

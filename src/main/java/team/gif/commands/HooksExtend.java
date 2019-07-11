@@ -13,7 +13,7 @@ public class HooksExtend extends Command {
 	}
 	
 	protected void initialize() {
-		Robot.hooks.open();
+		Robot.hooks.extend();
 	}
 	
 	protected void execute() {}

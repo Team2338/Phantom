@@ -10,8 +10,6 @@ import team.gif.RobotMap;
 
 /**
  * @author Patrick Ubelhor
- *
- * TODO: Set PID constant
  */
 public class Drivetrain extends Subsystem {
 	
