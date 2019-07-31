@@ -1,7 +1,7 @@
 package team.gif.autocommands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import team.gif.Robot;
+import team.gif.subsystems.Drivetrain;
 
 /**
  * @author Patrick Ubelhor
@@ -16,26 +16,26 @@ public class DrivePID extends Command {
 	private double rightSetpoint;
 	
 	public DrivePID(double leftSetpoint, double rightSetpoint) {
-		requires(Robot.chassis);
+		requires(Drivetrain.getInstance());
 		this.leftSetpoint = leftSetpoint;
 		this.rightSetpoint = rightSetpoint;
 	}
 	
 	protected void initialize() {
-		Robot.chassis.resetEncoders();
-		Robot.chassis.setLeftPosition(leftSetpoint);
-		Robot.chassis.setRightPosition(rightSetpoint);
+		Drivetrain.getInstance().resetEncoders();
+		Drivetrain.getInstance().setLeftPosition(leftSetpoint);
+		Drivetrain.getInstance().setRightPosition(rightSetpoint);
 	}
 	
 	protected void execute() {}
 	
 	protected boolean isFinished() {
-		return (Robot.chassis.getLeftError() < TOLERANCE
-				&& Robot.chassis.getRightError() < TOLERANCE);
+		return (Drivetrain.getInstance().getLeftError() < TOLERANCE
+				&& Drivetrain.getInstance().getRightError() < TOLERANCE);
 	}
 	
 	protected void end() {
-		Robot.chassis.setPercentOutput(0, 0);
+		Drivetrain.getInstance().setPercentOutput(0, 0);
 	}
 	
 	protected void interrupted() {}

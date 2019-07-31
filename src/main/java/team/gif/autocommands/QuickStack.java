@@ -3,7 +3,7 @@ package team.gif.autocommands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import team.gif.Robot;
+import team.gif.subsystems.CollectorMotors;
 
 /**
  * @author Patrick Ubelhor
@@ -24,7 +24,7 @@ public class QuickStack extends Command {
 	}
 	
 	protected void execute() {
-		if (Robot.collectorMotors.getLimit()
+		if (CollectorMotors.getInstance().getLimit()
 				&& !toggle
 				&& !stacro.isRunning()
 				&& Timer.getFPGATimestamp() - initTime > 2) {
@@ -33,7 +33,7 @@ public class QuickStack extends Command {
 			toggle = true;
 			initTime = Timer.getFPGATimestamp();
 		} else {
-			if (!Robot.collectorMotors.getLimit()) {
+			if (!CollectorMotors.getInstance().getLimit()) {
 				toggle = false;
 			}
 		}

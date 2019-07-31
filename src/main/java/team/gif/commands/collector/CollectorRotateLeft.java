@@ -1,7 +1,6 @@
 package team.gif.commands.collector;
 
 import edu.wpi.first.wpilibj.command.Command;
-import team.gif.Robot;
 import team.gif.subsystems.CollectorMotors;
 
 /**
@@ -9,14 +8,17 @@ import team.gif.subsystems.CollectorMotors;
  */
 public class CollectorRotateLeft extends Command {
 	
+	private final CollectorMotors collectorMotors;
+	
 	public CollectorRotateLeft() {
-		requires(Robot.collectorMotors);
+		this.collectorMotors = CollectorMotors.getInstance();
+		requires(collectorMotors);
 	}
 	
 	protected void initialize() {}
 	
 	protected void execute() {
-		Robot.collectorMotors.drive(CollectorMotors.Direction.LEFT);
+		collectorMotors.drive(CollectorMotors.Direction.LEFT);
 	}
 	
 	protected boolean isFinished() {

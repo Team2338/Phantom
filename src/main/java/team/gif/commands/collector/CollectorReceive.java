@@ -1,7 +1,6 @@
 package team.gif.commands.collector;
 
 import edu.wpi.first.wpilibj.command.Command;
-import team.gif.Robot;
 import team.gif.subsystems.CollectorMotors;
 
 /**
@@ -9,14 +8,17 @@ import team.gif.subsystems.CollectorMotors;
  */
 public class CollectorReceive extends Command {
 	
+	private final CollectorMotors collectorMotors;
+	
 	public CollectorReceive() {
-		requires(Robot.collectorMotors);
+		this.collectorMotors = CollectorMotors.getInstance();
+		requires(collectorMotors);
 	}
 	
 	protected void initialize() {}
 	
 	protected void execute() {
-		Robot.collectorMotors.drive(CollectorMotors.Direction.IN);
+		collectorMotors.drive(CollectorMotors.Direction.IN);
 	}
 	
 	protected boolean isFinished() {

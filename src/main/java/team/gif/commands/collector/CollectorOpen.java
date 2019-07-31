@@ -1,19 +1,22 @@
 package team.gif.commands.collector;
 
 import edu.wpi.first.wpilibj.command.Command;
-import team.gif.Robot;
+import team.gif.subsystems.CollectorPneumatics;
 
 /**
  * @author Patrick Ubelhor
  */
 public class CollectorOpen extends Command {
 	
+	private final CollectorPneumatics collectorPneumo;
+	
 	public CollectorOpen() {
-		requires(Robot.collectorPneumo);
+		this.collectorPneumo = CollectorPneumatics.getInstance();
+		requires(collectorPneumo);
 	}
 	
 	protected void initialize() {
-		Robot.collectorPneumo.open();
+		collectorPneumo.open();
 	}
 	
 	protected void execute() {}

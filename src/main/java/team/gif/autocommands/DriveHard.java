@@ -2,7 +2,7 @@ package team.gif.autocommands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import team.gif.Robot;
+import team.gif.subsystems.Drivetrain;
 
 /**
  * @author Patrick Ubelhor
@@ -16,7 +16,7 @@ public class DriveHard extends Command {
 	private double speed;
 	
 	public DriveHard(double speed, double time) {
-		requires(Robot.chassis);
+		requires(Drivetrain.getInstance());
 		this.speed = speed;
 		this.endTime = time;
 	}
@@ -26,7 +26,7 @@ public class DriveHard extends Command {
 	}
 	
 	protected void execute() {
-		Robot.chassis.setPercentOutput(speed, speed);
+		Drivetrain.getInstance().setPercentOutput(speed, speed);
 	}
 	
 	protected boolean isFinished() {
@@ -34,7 +34,7 @@ public class DriveHard extends Command {
 	}
 	
 	protected void end() {
-		Robot.chassis.setPercentOutput(0, 0);
+		Drivetrain.getInstance().setPercentOutput(0, 0);
 	}
 	
 	protected void interrupted() {}

@@ -1,7 +1,6 @@
 package team.gif.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import team.gif.Robot;
 import team.gif.subsystems.Holder;
 
 /**
