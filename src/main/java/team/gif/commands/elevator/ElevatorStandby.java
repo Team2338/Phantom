@@ -3,20 +3,24 @@ package team.gif.commands.elevator;
 import edu.wpi.first.wpilibj.command.Command;
 import team.gif.Globals;
 import team.gif.Robot;
+import team.gif.subsystems.Elevator;
 
 /**
  * @author Armaan Shah, Patrick Ubelhor
  */
 public class ElevatorStandby extends Command {
 	
+	private final Elevator elevator;
+	
 	public ElevatorStandby() {
-		requires(Robot.elevator);
+		this.elevator = Elevator.getInstance();
+		requires(elevator);
 	}
 	
 	protected void initialize() {}
 	
 	protected void execute() {
-		Robot.elevator.drive(Globals.elevatorSetpoint);
+		elevator.drive(Globals.elevatorSetpoint);
 	}
 	
 	protected boolean isFinished() {

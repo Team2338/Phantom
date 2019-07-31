@@ -3,21 +3,25 @@ package team.gif.commands.elevator;
 import edu.wpi.first.wpilibj.command.Command;
 import team.gif.Globals;
 import team.gif.Robot;
+import team.gif.subsystems.Elevator;
 
 /**
  *
  */
 public class ElevBumpUp extends Command {
 	
+	private final Elevator elevator;
+	
 	public ElevBumpUp() {
-		requires(Robot.elevator);
+		this.elevator = Elevator.getInstance();
+		requires(elevator);
 	}
 	
 	protected void initialize() {}
 	
 	protected void execute() {
-		Robot.elevator.drive(Robot.elevator.getHeight() + 200);
-		Globals.elevatorSetpoint = Robot.elevator.getSetpoint();
+		elevator.drive(elevator.getHeight() + 200);
+		Globals.elevatorSetpoint = elevator.getSetpoint();
 	}
 	
 	protected boolean isFinished() {
