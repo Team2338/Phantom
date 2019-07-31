@@ -2,18 +2,22 @@ package team.gif.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import team.gif.Robot;
+import team.gif.subsystems.Hooks;
 
 /**
  * @author Patrick Ubelhor
  */
 public class HooksRetract extends Command {
 	
+	private final Hooks hooks;
+	
 	public HooksRetract() {
-		requires(Robot.hooks);
+		this.hooks = Hooks.getInstance();
+		requires(hooks);
 	}
 	
 	protected void initialize() {
-		Robot.hooks.retract();
+		hooks.retract();
 	}
 	
 	protected void execute() {}

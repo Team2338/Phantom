@@ -10,8 +10,19 @@ import team.gif.commands.HolderClose;
  */
 public class Holder extends Subsystem {
 	
+	private static Holder instance;
+	
+	public static Holder getInstance() {
+		if (instance == null)
+			instance = new Holder();
+		
+		return instance;
+	}
+	
 	private static Solenoid canHolderA = new Solenoid(0, RobotMap.HOLDER_A);
 	private static Solenoid canHolderB = new Solenoid(1, RobotMap.HOLDER_B);
+	
+	private Holder() {}
 	
 	public void open() {
 		canHolderB.set(false);

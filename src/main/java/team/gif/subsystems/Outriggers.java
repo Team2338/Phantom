@@ -9,8 +9,19 @@ import team.gif.RobotMap;
  */
 public class Outriggers extends Subsystem {
 	
+	private static Outriggers instance;
+	
+	public static Outriggers getInstance() {
+		if (instance == null)
+			instance = new Outriggers();
+		
+		return instance;
+	}
+	
 	private static final Solenoid outriggersA = new Solenoid(1, RobotMap.OUTRIGGERS_A);
 	private static final Solenoid outriggersB = new Solenoid(0, RobotMap.OUTRIGGERS_B);
+	
+	private Outriggers() {}
 	
 	public void lower() {
 		outriggersB.set(false);

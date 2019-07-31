@@ -2,18 +2,22 @@ package team.gif.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import team.gif.Robot;
+import team.gif.subsystems.Holder;
 
 /**
  * @author Patrick Ubelhor
  */
 public class HolderOpen extends Command {
 	
+	private final Holder holder;
+	
 	public HolderOpen() {
-		requires(Robot.holder);
+		this.holder = Holder.getInstance();
+		requires(holder);
 	}
 	
 	protected void initialize() {
-		Robot.holder.open();
+		holder.open();
 	}
 	
 	protected void execute() {}

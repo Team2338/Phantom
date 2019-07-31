@@ -14,12 +14,21 @@ import team.gif.RobotMap;
  */
 public class Drivetrain extends Subsystem {
 	
+	private static Drivetrain instance;
+	
+	public static Drivetrain getInstance() {
+		if (instance == null)
+			instance = new Drivetrain();
+		
+		return instance;
+	}
+	
 	private static final TalonSRX leftMaster = new TalonSRX(RobotMap.DRIVETRAIN_LEFT_MASTER);
 	private static final TalonSRX leftSlave = new TalonSRX(RobotMap.DRIVETRAIN_LEFT_SLAVE);
 	private static final TalonSRX rightMaster = new TalonSRX(RobotMap.DRIVETRAIN_RIGHT_MASTER);
 	private static final TalonSRX rightSlave = new TalonSRX(RobotMap.DRIVETRAIN_RIGHT_SLAVE);
 	
-	public Drivetrain() {
+	private Drivetrain() {
 		super();
 		
 		leftMaster.setNeutralMode(NeutralMode.Brake);

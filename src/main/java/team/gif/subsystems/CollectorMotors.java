@@ -19,16 +19,25 @@ public class CollectorMotors extends Subsystem {
 		IN, OUT, LEFT, RIGHT
 	}
 	
+	private static CollectorMotors instance;
+	
+	public static CollectorMotors getInstance() {
+		if (instance == null)
+			instance = new CollectorMotors();
+		
+		return instance;
+	}
+	
 	private static final TalonSRX left = new TalonSRX(RobotMap.COLLECTOR_LEFT);
 	private static final TalonSRX right = new TalonSRX(RobotMap.COLLECTOR_RIGHT);
 	private static final DigitalInput limit = new DigitalInput(RobotMap.COLLECTOR_LIMIT);
 	
-	public CollectorMotors() {
+	private CollectorMotors() {
 		super();
 		
 		left.setNeutralMode(NeutralMode.Brake);
 		left.setInverted(Globals.Collector.IS_LEFT_REVERSED);
-		
+
 		right.setNeutralMode(NeutralMode.Brake);
 		right.setInverted(Globals.Collector.IS_RIGHT_REVERSED);
 	}

@@ -2,18 +2,22 @@ package team.gif.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import team.gif.Robot;
+import team.gif.subsystems.Chopsticks;
 
 /**
  * @author Patrick Ubelhor
  */
 public class ChopsticksOpen extends Command {
 	
+	private final Chopsticks chopsticks;
+	
 	public ChopsticksOpen() {
-		requires(Robot.chopsticks);
+		this.chopsticks = Chopsticks.getInstance();
+		requires(chopsticks);
 	}
 	
 	protected void initialize() {
-		Robot.chopsticks.open();
+		chopsticks.open();
 	}
 	
 	protected void execute() {}

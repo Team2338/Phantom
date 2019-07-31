@@ -9,8 +9,19 @@ import team.gif.RobotMap;
  */
 public class Hooks extends Subsystem {
 	
+	private static Hooks instance;
+	
+	public static Hooks getInstance() {
+		if (instance == null)
+			instance = new Hooks();
+		
+		return instance;
+	}
+	
 	private final Solenoid leftHookA = new Solenoid(0, RobotMap.HOOKS_A);
 	private final Solenoid leftHookB = new Solenoid(1, RobotMap.HOOKS_B);
+	
+	private Hooks() {}
 	
 	public void extend() {
 		leftHookB.set(false);

@@ -17,12 +17,21 @@ import team.gif.commands.elevator.ElevatorStandby;
  */
 public class Elevator extends Subsystem {
 	
+	private static Elevator instance;
+	
+	public static Elevator getInstance() {
+		if (instance == null)
+			instance = new Elevator();
+		
+		return instance;
+	}
+	
 	private static final TalonSRX elevator = new TalonSRX(RobotMap.ELEVATOR);
 	private static final DigitalInput elevatorMax = new DigitalInput(RobotMap.ELEVATOR_MAX);
 	private static final DigitalInput elevatorMin = new DigitalInput(RobotMap.ELEVATOR_MIN);
 	private static double prevSet = 0;
 	
-	public Elevator() {
+	private Elevator() {
 		super();
 		elevator.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 		elevator.setSensorPhase(Globals.Elevator.IS_ENCODER_REVERSED);

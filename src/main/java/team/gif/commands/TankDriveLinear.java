@@ -3,21 +3,24 @@ package team.gif.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import team.gif.OI;
 import team.gif.Robot;
+import team.gif.subsystems.Drivetrain;
 
 /**
  * @author Patrick Ubelhor
  */
 public class TankDriveLinear extends Command {
 	
+	private final Drivetrain chassis;
 	
 	public TankDriveLinear() {
-		requires(Robot.chassis);
+		this.chassis = Drivetrain.getInstance();
+		requires(chassis);
 	}
 	
 	protected void initialize() {}
 	
 	protected void execute() {
-		Robot.chassis.setPercentOutput(OI.getLeftY(), OI.getRightY());
+		chassis.setPercentOutput(OI.getLeftY(), OI.getRightY());
 	}
 	
 	protected boolean isFinished() {

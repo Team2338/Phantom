@@ -32,15 +32,15 @@ import team.gif.subsystems.Outriggers;
  */
 public class Robot extends TimedRobot {
 	
-	public static final Elevator elevator = new Elevator();
-	public static final Drivetrain chassis = new Drivetrain();
-	public static final Chopsticks chopsticks = new Chopsticks();
-	public static final CollectorMotors collectorMotors = new CollectorMotors();
-	public static final CollectorPneumatics collectorPneumo = new CollectorPneumatics();
-	public static final Outriggers outriggers = new Outriggers();
-	public static final Holder holder = new Holder();
-	public static final Hooks hooks = new Hooks();
-	private static final Compressor compressor = new Compressor(RobotMap.COMPRESSOR_MODULE);
+//	public static final Elevator elevator = new Elevator();
+//	public static final Drivetrain chassis = new Drivetrain();
+//	public static final Chopsticks chopsticks = new Chopsticks();
+//	public static final CollectorMotors collectorMotors = new CollectorMotors();
+//	public static final CollectorPneumatics collectorPneumo = new CollectorPneumatics();
+//	public static final Outriggers outriggers = new Outriggers();
+//	public static final Holder holder = new Holder();
+//	public static final Hooks hooks = new Hooks();
+//	private static final Compressor compressor = new Compressor(RobotMap.COMPRESSOR_MODULE);
 	public static OI oi;
 	
 	private SendableChooser<Command> autoChooser;
@@ -62,9 +62,9 @@ public class Robot extends TimedRobot {
 	
 	@Override
 	public void robotPeriodic() {
-		chassis.displayMetrics();
-		collectorMotors.displayMetrics();
-		elevator.displayMetrics();
+//		chassis.displayMetrics();
+//		collectorMotors.displayMetrics();
+//		elevator.displayMetrics();
 	}
 	
 	@Override
@@ -77,7 +77,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putData(chassis);
+//		SmartDashboard.putData(chassis);
 	}
 	
 	@Override
