@@ -32,60 +32,60 @@ import team.gif.subsystems.Outriggers;
  */
 public class Robot extends TimedRobot {
 	
-//	public static final Elevator elevator = new Elevator();
-//	public static final Drivetrain chassis = new Drivetrain();
-//	public static final Chopsticks chopsticks = new Chopsticks();
-//	public static final CollectorMotors collectorMotors = new CollectorMotors();
-//	public static final CollectorPneumatics collectorPneumo = new CollectorPneumatics();
-//	public static final Outriggers outriggers = new Outriggers();
-//	public static final Holder holder = new Holder();
-//	public static final Hooks hooks = new Hooks();
-//	private static final Compressor compressor = new Compressor(RobotMap.COMPRESSOR_MODULE);
+	public static final Elevator elevator = Elevator.getInstance();
+	public static final Drivetrain chassis = Drivetrain.getInstance();
+	public static final Chopsticks chopsticks = Chopsticks.getInstance();
+	public static final CollectorMotors collectorMotors = CollectorMotors.getInstance();
+	public static final CollectorPneumatics collectorPneumo = CollectorPneumatics.getInstance();
+	public static final Outriggers outriggers = Outriggers.getInstance();
+	public static final Holder holder = Holder.getInstance();
+	public static final Hooks hooks = Hooks.getInstance();
+	private static final Compressor compressor = new Compressor(RobotMap.COMPRESSOR_MODULE);
 	public static OI oi;
 	
-//	private SendableChooser<Command> autoChooser;
-//	private Command autoCommand;
-//	private Command teleCommand = new TankDriveLinear();
+	private SendableChooser<Command> autoChooser;
+	private Command autoCommand;
+	private Command teleCommand = new TankDriveLinear();
 	
 	@Override
 	public void robotInit() {
 		oi = new OI();
 		
-//		autoChooser = new SendableChooser<>();
-//		autoChooser.setDefaultOption("No autonomous", new AntiAuto());
-//		autoChooser.addOption("Drive Forward", new DrivePID(4000, 4000));
-//		autoChooser.addOption("Step Cans", new PullCans());
-//		autoChooser.addOption("WAIT STEP CANS", new WAITSTEPCAN());
-//		autoChooser.addOption("TurnLeft90", new DrivePID(-1000, 1000));
-//		SmartDashboard.putData("Auto Mode", autoChooser);
+		autoChooser = new SendableChooser<>();
+		autoChooser.setDefaultOption("No autonomous", new AntiAuto());
+		autoChooser.addOption("Drive Forward", new DrivePID(4000, 4000));
+		autoChooser.addOption("Step Cans", new PullCans());
+		autoChooser.addOption("WAIT STEP CANS", new WAITSTEPCAN());
+		autoChooser.addOption("TurnLeft90", new DrivePID(-1000, 1000));
+		SmartDashboard.putData("Auto Mode", autoChooser);
 	}
 	
 	@Override
 	public void robotPeriodic() {
-//		chassis.displayMetrics();
-//		collectorMotors.displayMetrics();
-//		elevator.displayMetrics();
+		chassis.displayMetrics();
+		collectorMotors.displayMetrics();
+		elevator.displayMetrics();
 	}
 	
 	@Override
 	public void autonomousInit() {
-//		(new ChopsticksOpen()).start();
-//		autoCommand = autoChooser.getSelected();
-//		autoCommand.start();
+		(new ChopsticksOpen()).start();
+		autoCommand = autoChooser.getSelected();
+		autoCommand.start();
 	}
 	
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-//		SmartDashboard.putData(chassis);
+		SmartDashboard.putData(chassis);
 	}
 	
 	@Override
 	public void teleopInit() {
-//		if (autoCommand != null) {
-//			autoCommand.cancel();
-//		}
-//		teleCommand.start();
+		if (autoCommand != null) {
+			autoCommand.cancel();
+		}
+		teleCommand.start();
 	}
 	
 	@Override
