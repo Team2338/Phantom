@@ -1,14 +1,11 @@
+import edu.wpi.first.gradlerio.GradleRIOPlugin
 
 plugins {
 	id 'java'
 	id "edu.wpi.first.GradleRIO" version "2019.4.1"
 }
 
-//wrapper {
-//	gradleVersion = '5.5.1'
-//}
-
-def ROBOT_MAIN_CLASS = "team.gif.Main"
+def ROBOT_MAIN_CLASS = "team.gif.Robot"
 def TEAM_NUMBER = 2338
 
 dependencies {
@@ -16,6 +13,10 @@ dependencies {
 	compile wpi.deps.vendor.java()
 	nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
 	nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
+}
+
+wrapper {
+	gradleVersion = '5.5.1'
 }
 
 // Define my targets (RoboRIO) and artifacts (deployable files)
@@ -53,5 +54,5 @@ deploy {
 
 jar {
 	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-	manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
+	manifest GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
 }

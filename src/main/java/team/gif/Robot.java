@@ -1,6 +1,7 @@
 package team.gif;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -24,14 +25,14 @@ import team.gif.subsystems.Outriggers;
 /**
  * @author Patrick Ubelhor
  *
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
+ * The VM is configured to automatically run this class, and to call 0the
+ * functions corresponding to each mode, as described in the TimedRobot
  * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
+ * creating this project, you must also update the build.gradle file.
  */
 public class Robot extends TimedRobot {
 	
+	// This ensures they all get instantiated when the robot start up
 	public static final Elevator elevator = Elevator.getInstance();
 	public static final Drivetrain chassis = Drivetrain.getInstance();
 	public static final Chopsticks chopsticks = Chopsticks.getInstance();
@@ -46,6 +47,10 @@ public class Robot extends TimedRobot {
 	private SendableChooser<Command> autoChooser;
 	private Command autoCommand;
 	private Command teleCommand = new TankDriveLinear();
+	
+	public static void main(String[] args) {
+		RobotBase.startRobot(Robot::new);
+	}
 	
 	@Override
 	public void robotInit() {
@@ -62,6 +67,7 @@ public class Robot extends TimedRobot {
 	
 	@Override
 	public void robotPeriodic() {
+		Scheduler.getInstance().run();
 		chassis.displayMetrics();
 		collectorMotors.displayMetrics();
 		elevator.displayMetrics();
@@ -76,7 +82,6 @@ public class Robot extends TimedRobot {
 	
 	@Override
 	public void autonomousPeriodic() {
-		Scheduler.getInstance().run();
 		SmartDashboard.putData(chassis);
 	}
 	
@@ -89,17 +94,13 @@ public class Robot extends TimedRobot {
 	}
 	
 	@Override
-	public void teleopPeriodic() {
-		Scheduler.getInstance().run();
-	}
+	public void teleopPeriodic() {}
 	
 	@Override
 	public void disabledInit() {}
 	
 	@Override
-	public void disabledPeriodic() {
-		Scheduler.getInstance().run();
-	}
+	public void disabledPeriodic() {}
 	
 	@Override
 	public void testPeriodic() {}
