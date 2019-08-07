@@ -7,6 +7,8 @@ plugins {
 
 def ROBOT_MAIN_CLASS = "team.gif.Robot"
 def TEAM_NUMBER = 2338
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
 
 dependencies {
 	compile wpi.deps.wpilib()
