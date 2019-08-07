@@ -43,21 +43,21 @@ public class Robot extends TimedRobot {
 //	private static final Compressor compressor = new Compressor(RobotMap.COMPRESSOR_MODULE);
 	public static OI oi;
 	
-	private SendableChooser<Command> autoChooser;
-	private Command autoCommand;
-	private Command teleCommand = new TankDriveLinear();
+//	private SendableChooser<Command> autoChooser;
+//	private Command autoCommand;
+//	private Command teleCommand = new TankDriveLinear();
 	
 	@Override
 	public void robotInit() {
 		oi = new OI();
 		
-		autoChooser = new SendableChooser<>();
-		autoChooser.setDefaultOption("No autonomous", new AntiAuto());
-		autoChooser.addOption("Drive Forward", new DrivePID(4000, 4000));
-		autoChooser.addOption("Step Cans", new PullCans());
-		autoChooser.addOption("WAIT STEP CANS", new WAITSTEPCAN());
-		autoChooser.addOption("TurnLeft90", new DrivePID(-1000, 1000));
-		SmartDashboard.putData("Auto Mode", autoChooser);
+//		autoChooser = new SendableChooser<>();
+//		autoChooser.setDefaultOption("No autonomous", new AntiAuto());
+//		autoChooser.addOption("Drive Forward", new DrivePID(4000, 4000));
+//		autoChooser.addOption("Step Cans", new PullCans());
+//		autoChooser.addOption("WAIT STEP CANS", new WAITSTEPCAN());
+//		autoChooser.addOption("TurnLeft90", new DrivePID(-1000, 1000));
+//		SmartDashboard.putData("Auto Mode", autoChooser);
 	}
 	
 	@Override
@@ -69,9 +69,9 @@ public class Robot extends TimedRobot {
 	
 	@Override
 	public void autonomousInit() {
-		(new ChopsticksOpen()).start();
-		autoCommand = autoChooser.getSelected();
-		autoCommand.start();
+//		(new ChopsticksOpen()).start();
+//		autoCommand = autoChooser.getSelected();
+//		autoCommand.start();
 	}
 	
 	@Override
@@ -82,10 +82,10 @@ public class Robot extends TimedRobot {
 	
 	@Override
 	public void teleopInit() {
-		if (autoCommand != null) {
-			autoCommand.cancel();
-		}
-		teleCommand.start();
+//		if (autoCommand != null) {
+//			autoCommand.cancel();
+//		}
+//		teleCommand.start();
 	}
 	
 	@Override
