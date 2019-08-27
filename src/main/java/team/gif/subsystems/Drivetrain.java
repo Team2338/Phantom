@@ -34,7 +34,7 @@ public class Drivetrain extends Subsystem {
 		leftMaster.setNeutralMode(NeutralMode.Brake);
 		leftMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 		leftMaster.setSensorPhase(Globals.Drivetrain.IS_REVERSED_LEFT_ENCODER);
-		leftMaster.setInverted(Globals.Drivetrain.IS_REVERSED_LEFT_MOTOR);
+		leftMaster.setInverted(Globals.Drivetrain.IS_REVERSED_LEFT_MASTER_MOTOR);
 		leftMaster.setSelectedSensorPosition(0);
 		leftMaster.config_kP(0, Globals.Drivetrain.P);
 		leftMaster.config_kI(0, Globals.Drivetrain.I);
@@ -44,7 +44,7 @@ public class Drivetrain extends Subsystem {
 		rightMaster.setNeutralMode(NeutralMode.Brake);
 		rightMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 		rightMaster.setSensorPhase(Globals.Drivetrain.IS_REVERSED_RIGHT_ENCODER);
-		rightMaster.setInverted(Globals.Drivetrain.IS_REVERSED_RIGHT_MOTOR);
+		rightMaster.setInverted(Globals.Drivetrain.IS_REVERSED_RIGHT_MASTER_MOTOR);
 		rightMaster.setSelectedSensorPosition(0);
 		leftMaster.config_kP(0, Globals.Drivetrain.P);
 		leftMaster.config_kI(0, Globals.Drivetrain.I);
@@ -52,7 +52,10 @@ public class Drivetrain extends Subsystem {
 		rightMaster.config_IntegralZone(0, Globals.Drivetrain.I_ZONE);
 		
 		leftSlave.follow(leftMaster);
+		leftSlave.setInverted(Globals.Drivetrain.IS_REVERSED_LEFT_SLAVE_MOTOR);
+		
 		rightSlave.follow(rightMaster);
+		rightSlave.setInverted(Globals.Drivetrain.IS_REVERSED_RIGHT_SLAVE_MOTOR);
 	}
 	
 	

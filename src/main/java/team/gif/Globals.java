@@ -22,20 +22,22 @@ public abstract class Globals {
 		public static final double D = 0.0;
 		public static final int I_ZONE = 1000;
 		public static final boolean IS_REVERSED_LEFT_ENCODER = false;
-		public static final boolean IS_REVERSED_LEFT_MOTOR = true;
+		public static final boolean IS_REVERSED_LEFT_MASTER_MOTOR = true;
+		public static final boolean IS_REVERSED_LEFT_SLAVE_MOTOR = true;
 		public static final boolean IS_REVERSED_RIGHT_ENCODER = true;
-		public static final boolean IS_REVERSED_RIGHT_MOTOR = true;
+		public static final boolean IS_REVERSED_RIGHT_MASTER_MOTOR = false;
+		public static final boolean IS_REVERSED_RIGHT_SLAVE_MOTOR = false;
 	}
 	
 	// Elevator variables
 	public static class Elevator {
-		public static final double kP = 8;
+		public static final double kP = 3;
 		public static final double kI = 0;
 		public static final double kD = 0;
 		public static final double kF = 0;
-		public static final int I_ZONE = 0;
+		public static final int I_ZONE = 300;
 		public static final boolean IS_MOTOR_REVERSED = true;
-		public static final boolean IS_ENCODER_REVERSED = true;
+		public static final boolean IS_ENCODER_REVERSED = false;
 		public static final double LEVEL_1 = 12;
 		public static final double LEVEL_2 = 1000;
 		public static final double LEVEL_2_BUMP = 1400;

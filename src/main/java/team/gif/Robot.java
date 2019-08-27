@@ -71,6 +71,7 @@ public class Robot extends TimedRobot {
 		chassis.displayMetrics();
 		collectorMotors.displayMetrics();
 		elevator.displayMetrics();
+		compressor.stop();
 	}
 	
 	@Override
